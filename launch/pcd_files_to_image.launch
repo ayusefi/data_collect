@@ -1,14 +1,11 @@
 <!-- -->
 <launch>
+	<arg name="output_dir" default="/home/oem/output_test"/>
 
 	<!-- velodyne -->
 	<node pkg="data_collect" type="pcd_files_to_image" name="pcd_files_to_image_velodyne_node" output="screen" clear_params="true">
-		<param name="directory_path" type="string" value="$(find data_collect)/output/velodyne" />
+		<param name="directory_path" type="string" value="$(arg output_dir)/velodyne" />
 	</node>
 
-	<!-- radar -->
-	<!-- <node pkg="data_collect" type="pcd_files_to_image" name="pcd_files_to_image_radar_node" output="screen" clear_params="true">
-		<param name="directory_path" type="string" value="$(find data_collect)/output/radar" />
-	</node> -->
 </launch>
 
