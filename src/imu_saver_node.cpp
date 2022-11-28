@@ -6,7 +6,7 @@
 **********************************/
 
 #include <ros/ros.h>
-#include "imu_single_file_saver.h"
+#include "imu_saver.h"
 
 int main(int argc, char** argv)
 {

@@ -6,7 +6,7 @@
 **********************************/
 
 #include <ros/ros.h>
-#include "navsatfix_saver_v1.h"
+#include "navsatfix_saver.h"
 
 int main(int argc, char** argv)
 {

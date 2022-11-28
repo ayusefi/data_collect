@@ -1,5 +1,5 @@
-#ifndef IMAGE_SAVER_H
-#define IMAGE_SAVER_H
+#ifndef DATA_TO_BAG_H
+#define DATA_TO_BAG_H
 
 /**********************************
 

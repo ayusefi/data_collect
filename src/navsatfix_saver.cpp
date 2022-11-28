@@ -5,7 +5,7 @@
 
 **********************************/
 
-#include "navsatfix_saver_v1.h"
+#include "navsatfix_saver.h"
 
 NavsatfixSaver::NavsatfixSaver(ros::NodeHandle node, ros::NodeHandle private_nh)
 {
@@ -21,7 +21,7 @@ NavsatfixSaver::NavsatfixSaver(ros::NodeHandle node, ros::NodeHandle private_nh)
     std::cout << e.what() << std::endl;
   }
   MyFile.open(_output_path + "fix.txt");
-  MyFile << "Timestamp,Latitude,Longitude,Altitude\n";
+  MyFile << "timestamp,latitude,longitude,altitude\n";
   navsatfix_sub = node.subscribe(_navsatfix_topic, 1, &NavsatfixSaver::navsatfixCallback, this);
 }
 

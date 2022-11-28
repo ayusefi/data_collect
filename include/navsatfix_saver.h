@@ -1,5 +1,5 @@
-#ifndef NAVSATFIX_SAVER_V1_H
-#define NAVSATFIX_SAVER_V1_H
+#ifndef NAVSATFIX_SAVER_H
+#define NAVSATFIX_SAVER_H
 
 /**********************************
 

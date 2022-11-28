@@ -54,10 +54,6 @@ add_executable(imu_saver src/imu_saver_node.cpp src/imu_saver.cpp)
 target_link_libraries(imu_saver ${catkin_LIBRARIES})
 add_dependencies(imu_saver ${catkin_EXPORTED_TARGETS})
 
-add_executable(imu_single_file_saver src/imu_single_file_saver_node.cpp src/imu_single_file_saver.cpp)
-target_link_libraries(imu_single_file_saver ${catkin_LIBRARIES})
-add_dependencies(imu_single_file_saver ${catkin_EXPORTED_TARGETS})
-
 add_executable(float64_saver src/float64_saver_node.cpp src/float64_saver.cpp)
 target_link_libraries(float64_saver ${catkin_LIBRARIES})
 add_dependencies(float64_saver ${catkin_EXPORTED_TARGETS})
@@ -65,10 +61,6 @@ add_dependencies(float64_saver ${catkin_EXPORTED_TARGETS})
 add_executable(navsatfix_saver src/navsatfix_saver_node.cpp src/navsatfix_saver.cpp)
 target_link_libraries(navsatfix_saver ${catkin_LIBRARIES})
 add_dependencies(navsatfix_saver ${catkin_EXPORTED_TARGETS})
-
-add_executable(navsatfix_saver_v1 src/navsatfix_saver_v1_node.cpp src/navsatfix_saver_v1.cpp)
-target_link_libraries(navsatfix_saver_v1 ${catkin_LIBRARIES})
-add_dependencies(navsatfix_saver_v1 ${catkin_EXPORTED_TARGETS})
 
 add_executable(float32stamped_saver src/float32stamped_saver_node.cpp src/float32stamped_saver.cpp)
 target_link_libraries(float32stamped_saver ${catkin_LIBRARIES})
@@ -81,10 +73,6 @@ add_dependencies(odometry_saver ${catkin_EXPORTED_TARGETS})
 add_executable(data_to_bag src/data_to_bag_node.cpp src/data_to_bag.cpp)
 target_link_libraries(data_to_bag ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${OpenCV_LIBRARIES} ${Boost_LIBRARIES})
 add_dependencies(data_to_bag ${catkin_EXPORTED_TARGETS})
-
-add_executable(data_to_bag_v1 src/data_to_bag_v1_node.cpp src/data_to_bag_v1.cpp)
-target_link_libraries(data_to_bag_v1 ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${OpenCV_LIBRARIES} ${Boost_LIBRARIES})
-add_dependencies(data_to_bag_v1 ${catkin_EXPORTED_TARGETS})
 
 add_executable(txt_files_to_list src/txt_files_to_list_node.cpp src/txt_files_to_list.cpp)
 target_link_libraries(txt_files_to_list ${catkin_LIBRARIES})

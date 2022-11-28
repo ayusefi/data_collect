@@ -5,7 +5,7 @@
 
 **********************************/
 
-#include "imu_single_file_saver.h"
+#include "imu_saver.h"
 
 ImuSaver::ImuSaver(ros::NodeHandle node, ros::NodeHandle private_nh)
 {
@@ -21,6 +21,7 @@ ImuSaver::ImuSaver(ros::NodeHandle node, ros::NodeHandle private_nh)
     std::cout << e.what() << std::endl;
   }
   MyFile.open(_output_path + "Imu.txt");
+  MyFile << "timestamp,linear_x,linear_y,linear_z,angular_x,angular_y,angular_z,orientation_x,orientation_y,orientation_z,orientation_w\n";
   imu_sub = node.subscribe(_imu_topic, 1, &ImuSaver::imuCallback, this);
 }
 
@@ -32,7 +33,4 @@ void ImuSaver::imuCallback(const sensor_msgs::Imu::ConstPtr& imu_msg)
   MyFile << std::setprecision(10) << ss.str() <<','<< imu_msg->linear_acceleration.x <<','<<imu_msg->linear_acceleration.y<<','<<imu_msg->linear_acceleration.z<<','<<
             imu_msg->angular_velocity.x<<','<<imu_msg->angular_velocity.y<<','<<imu_msg->angular_velocity.z<<','<<
             imu_msg->orientation.x<<','<<imu_msg->orientation.y<<','<<imu_msg->orientation.z<<','<<imu_msg->orientation.w<<'\n';
-  // MyFile.close();
-  // ROS_INFO("Imu Seq: [%d]", imu_msg->header.seq);
-  // ROS_INFO("Imu Orientation x: [%f], y: [%f], z: [%f], w: [%f]", imu_msg->orientation.x, imu_msg->orientation.y, imu_msg->orientation.z, imu_msg->orientation.w);
 }

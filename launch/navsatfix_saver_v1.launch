@@ -1,8 +1,0 @@
-<!-- -->
-<launch>
-	<node pkg="data_collect" type="navsatfix_saver" name="navsatfix_saver_node" output="screen" clear_params="true">
-		<param name="navsatfix_topic" type="string" value="/fix" />
-		<param name="output_path" type="string" value="/home/oem/output_test/fix/" />
-	</node>
-</launch>
-

@@ -6,7 +6,7 @@
 **********************************/
 
 #include <ros/ros.h>
-#include "data_to_bag_v1.h"
+#include "data_to_bag.h"
 
 int main(int argc, char** argv)
 {

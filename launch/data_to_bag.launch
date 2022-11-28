@@ -1,0 +1,10 @@
+<!-- -->
+<launch>
+	<node pkg="data_collect" type="data_to_bag" name="data_to_bag_node" output="screen" clear_params="true">
+		<param name="dataset_path" type="string" value="/home/oem/output_test/" />
+		<rosparam param="directory_names">["imu"]</rosparam>
+		<rosparam param="topic_names">["/imu/data"]</rosparam>
+		<rosparam param="frame_ids">["imu"]</rosparam>
+		<rosparam param="data_types">["Imu"]</rosparam>
+	</node>
+</launch>
