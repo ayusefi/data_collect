@@ -1,0 +1,12 @@
+<!-- -->
+<launch>
+	<node pkg="data_collect" type="pointcloud_saver" name="pointcloud_saver_radar_node" output="screen" clear_params="true">
+		<param name="pointcloud_topic" type="string" value="/radar/target_list_cartesian" />
+		<param name="output_path" type="string" value="$(find data_collect)/output/radar/" />
+	</node>
+	<node pkg="data_collect" type="pointcloud_saver" name="pointcloud_saver_velodyne_node" output="screen" clear_params="true">
+		<param name="pointcloud_topic" type="string" value="/velodyne_points" />
+		<param name="output_path" type="string" value="$(find data_collect)/output/velodyne/" />
+	</node>
+</launch>
+

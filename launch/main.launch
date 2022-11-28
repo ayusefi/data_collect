@@ -1,0 +1,57 @@
+<!-- -->
+<launch>
+	<!-- smart_micro -->
+	<arg name="output_dir" default="output"/>
+	<node pkg="data_collect" type="pointcloud_saver" name="pointcloud_saver_radar_node" output="screen" clear_params="true">
+		<param name="pointcloud_topic" type="string" value="/radar/target_list_cartesian" />
+		<param name="output_path" type="string" value="$(find data_collect)/$(arg output_dir)/radar/" />
+	</node>
+
+	<!-- velodyne -->
+	<node pkg="data_collect" type="pointcloud_saver" name="pointcloud_saver_velodyne_node" output="screen" clear_params="true">
+		<param name="pointcloud_topic" type="string" value="/velodyne_points" />
+		<param name="output_path" type="string" value="$(find data_collect)/$(arg output_dir)/velodyne/" />
+	</node>
+
+	<!-- zed_camera -->
+	<node pkg="data_collect" type="image_saver" name="image_saver_node" output="screen" clear_params="true">
+		<param name="image_topic" type="string" value="/zed/zed_node/right_raw/image_raw_color" />
+		<param name="output_path" type="string" value="$(find data_collect)/$(arg output_dir)/image/" />
+	</node>
+
+	<!-- imu -->
+	<node pkg="data_collect" type="imu_saver" name="imu_saver_node" output="screen" clear_params="true">
+		<param name="imu_topic" type="string" value="/imu/data" />
+		<param name="output_path" type="string" value="$(find data_collect)/$(arg output_dir)/imu/" />
+	</node>
+
+	<!-- steer -->
+	<node pkg="data_collect" type="float32stamped_saver" name="float32stamped_saver_steer_node" output="screen" clear_params="true">
+		<param name="float32stamped_topic" type="string" value="/steer_can" />
+		<param name="output_path" type="string" value="$(find data_collect)/$(arg output_dir)/steer/" />
+	</node>
+	
+	<!-- speed -->
+	<node pkg="data_collect" type="float32stamped_saver" name="float32stamped_saver_speed_node" output="screen" clear_params="true">
+		<param name="float32stamped_topic" type="string" value="/speed_can" />
+		<param name="output_path" type="string" value="$(find data_collect)/$(arg output_dir)/speed/" />
+	</node>
+
+	<!-- gps -->
+	<node pkg="data_collect" type="navsatfix_saver" name="navsatfix_saver_node" output="screen" clear_params="true">
+		<param name="navsatfix_topic" type="string" value="/fix" />
+		<param name="output_path" type="string" value="$(find data_collect)/$(arg output_dir)/fix/" />
+	</node>
+
+	<!-- odometry_filtered -->
+	<node pkg="data_collect" type="odometry_saver" name="odometry_saver_filtered_node" output="screen" clear_params="true">
+		<param name="odometry_topic" type="string" value="/odometry/filtered" />
+		<param name="output_path" type="string" value="$(find data_collect)/$(arg output_dir)/odometry_filtered/" />
+	</node>
+
+	<!-- zed_odom -->
+	<node pkg="data_collect" type="odometry_saver" name="odometry_saver_zed_node" output="screen" clear_params="true">
+		<param name="odometry_topic" type="string" value="/zed/zed_node/odom" />
+		<param name="output_path" type="string" value="$(find data_collect)/$(arg output_dir)/zed_odom/" />
+	</node>
+</launch>

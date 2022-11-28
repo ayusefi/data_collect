@@ -1,0 +1,14 @@
+<!-- -->
+<launch>
+
+	<!-- velodyne -->
+	<node pkg="data_collect" type="pcd_files_to_image" name="pcd_files_to_image_velodyne_node" output="screen" clear_params="true">
+		<param name="directory_path" type="string" value="$(find data_collect)/output/velodyne" />
+	</node>
+
+	<!-- radar -->
+	<!-- <node pkg="data_collect" type="pcd_files_to_image" name="pcd_files_to_image_radar_node" output="screen" clear_params="true">
+		<param name="directory_path" type="string" value="$(find data_collect)/output/radar" />
+	</node> -->
+</launch>
+

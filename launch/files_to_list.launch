@@ -1,0 +1,55 @@
+<!-- -->
+<launch>
+	<!-- gps -->
+	<node pkg="data_collect" type="txt_files_to_list" name="txt_files_to_list_fix_node" output="screen" clear_params="true">
+		<param name="directory_path" type="string" value="$(find data_collect)/output/fix" />
+		<param name="output_file_name" type="string" value="fix" />
+		<rosparam param="variable_names">["latitude","longitude","altitude"]</rosparam>
+	</node>
+
+	<!-- imu -->
+	<node pkg="data_collect" type="txt_files_to_list" name="txt_files_to_list_imu_node" output="screen" clear_params="true">
+		<param name="directory_path" type="string" value="$(find data_collect)/output/imu" />
+		<rosparam param="variable_names">["linear_x","linear_y","linear_z","angular_x","angular_y","angular_z","orientation_x","orientation_y","orientation_z","orientation_w"]</rosparam>
+	</node>
+
+	<!-- odometry_filtered -->
+	<node pkg="data_collect" type="txt_files_to_list" name="txt_files_to_list_odom_filtered_node" output="screen" clear_params="true">
+		<param name="directory_path" type="string" value="$(find data_collect)/output/odometry_filtered" />
+		<rosparam param="variable_names">["position_x","position_y","position_z","orientation_x","orientation_y","orientation_z","orientation_w"]</rosparam>
+	</node>
+
+	<!-- speed -->
+	<node pkg="data_collect" type="txt_files_to_list" name="txt_files_to_list_speed_node" output="screen" clear_params="true">
+		<param name="directory_path" type="string" value="$(find data_collect)/output/speed" />
+		<rosparam param="variable_names">["speed"]</rosparam>
+	</node>
+
+	<!-- steer -->
+	<node pkg="data_collect" type="txt_files_to_list" name="txt_files_to_list_steer_node" output="screen" clear_params="true">
+		<param name="directory_path" type="string" value="$(find data_collect)/output/steer" />
+		<rosparam param="variable_names">["steer"]</rosparam>
+	</node>
+
+	<!-- zed_odom -->
+	<node pkg="data_collect" type="txt_files_to_list" name="txt_files_to_list_zed_odom_node" output="screen" clear_params="true">
+		<param name="directory_path" type="string" value="$(find data_collect)/output/zed_odom" />
+		<rosparam param="variable_names">["zed_odom"]</rosparam>
+	</node>
+
+	<!-- image -->
+	<node pkg="data_collect" type="image_files_to_list" name="image_files_to_list_node" output="screen" clear_params="true">
+		<param name="directory_path" type="string" value="$(find data_collect)/output/image" />
+	</node>
+
+	<!-- velodyne -->
+	<node pkg="data_collect" type="pcd_files_to_list" name="pcd_files_to_list_velodyne_node" output="screen" clear_params="true">
+		<param name="directory_path" type="string" value="$(find data_collect)/output/velodyne" />
+	</node>
+
+	<!-- radar -->
+	<node pkg="data_collect" type="pcd_files_to_list" name="pcd_files_to_list_radar_node" output="screen" clear_params="true">
+		<param name="directory_path" type="string" value="$(find data_collect)/output/radar" />
+	</node>
+</launch>
+

@@ -1,0 +1,13 @@
+<!-- -->
+<launch>
+	<node pkg="data_collect" type="odometry_saver" name="odometry_saver_filtered_node" output="screen" clear_params="true">
+		<param name="odometry_topic" type="string" value="/odometry/filtered" />
+		<param name="output_path" type="string" value="$(find data_collect)/output/odometry_filtered/" />
+	</node>
+
+	<node pkg="data_collect" type="odometry_saver" name="odometry_saver_zed_node" output="screen" clear_params="true">
+		<param name="odometry_topic" type="string" value="/zed/zed_node/odom" />
+		<param name="output_path" type="string" value="$(find data_collect)/output/zed_odom/" />
+	</node>
+</launch>
+

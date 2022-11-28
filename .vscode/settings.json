@@ -1,0 +1,11 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/opt/ros/melodic/lib/python2.7/dist-packages",
+        "/home/mpg/cvbridge_build_ws/install/lib/python3/dist-packages"
+    ],
+    "cmake.configureOnOpen": false,
+    "python.analysis.extraPaths": [
+        "/opt/ros/melodic/lib/python2.7/dist-packages",
+        "/home/mpg/cvbridge_build_ws/install/lib/python3/dist-packages"
+    ]
+}

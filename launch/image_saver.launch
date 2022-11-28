@@ -1,0 +1,8 @@
+<!-- -->
+<launch>
+	<node pkg="data_collect" type="image_saver" name="image_saver_node" output="screen" clear_params="true">
+		<param name="image_topic" type="string" value="/zed/zed_node/right_raw/image_raw_color" />
+		<param name="output_path" type="string" value="$(find data_collect)/output/image/" />
+	</node>
+</launch>
+

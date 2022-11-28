@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>data_collect</name>
+  <version>1.7.4</version>
+  <description>
+    The package to collect data from different sensors.
+    Supported data types:
+      - pointcloud2     saved  ->  timestamp.pcd
+      - Image           saved  ->  timestamp.jpg
+      - Imu             saved  ->  timestamp.txt
+      - Float64         saved  ->  timestamp.txt
+      - NavSatFix       saved  ->  timestamp.txt
+      - Float32Stamped  saved  ->  timestamp.txt
+      - Odometry        saved  ->  timestamp.txt
+  </description>
+  <author email="a.yusefi1991@gmail.com">Abdullah Yusefi</author>
+  <maintainer email="a.yusefi1991@gmail.com">Abdullah Yusefi</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>rosconsole</build_depend>
+  <build_depend>roslib</build_depend>
+  <build_depend>image_transport</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>image_transport</exec_depend>
+
+</package>
