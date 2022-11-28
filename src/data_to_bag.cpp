@@ -134,7 +134,6 @@ void DataToBag::timestampStrToRos(const std::string* timestamp_str, ros::Time* t
 
   }
   // timestamp_str.erase(remove(timestamp_str.begin(), timestamp_str.end(), '.'), timestamp_str.end());
-  std::cout << "odom: " << new_timestamp.str() << std::endl;
   time->fromNSec(std::stoull((new_timestamp).str()));
 }
 

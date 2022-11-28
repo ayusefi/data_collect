@@ -1,8 +1,0 @@
-<!-- -->
-<launch>
-	<node pkg="data_collect" type="imu_saver" name="imu_saver_node" output="screen" clear_params="true">
-		<param name="imu_topic" type="string" value="/imu/data" />
-		<param name="output_path" type="string" value="/home/oem/output_test/imu/" />
-	</node>
-</launch>
-

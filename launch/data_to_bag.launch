@@ -1,10 +1,12 @@
 <!-- -->
 <launch>
+	<arg name="output_dir" default="/home/oem/output_test/"/>
+
 	<node pkg="data_collect" type="data_to_bag" name="data_to_bag_node" output="screen" clear_params="true">
-		<param name="dataset_path" type="string" value="/home/oem/output_test/" />
-		<rosparam param="directory_names">["fix","image","imu","odometry_filtered","radar","zed_odom"]</rosparam>
-		<rosparam param="topic_names">["/fix","/zed/zed_node/right_raw/image_raw_color","/imu/data","/odometry/filtered","/radar/target_list_cartesian","/zed/zed_node/odom"]</rosparam>
-		<rosparam param="frame_ids">["gps","zed","imu","odometry_filtered","smart_micro","zed_odom"]</rosparam>
-		<rosparam param="data_types">["NavSatFix","Image","Imu","Odometry","PointCloud2","Odometry"]</rosparam>
+		<param name="dataset_path" type="string" value="$(arg output_dir)" />
+		<rosparam param="directory_names">["fix","image","imu","odometry_filtered","radar","velodyne","zed_odom"]</rosparam>
+		<rosparam param="topic_names">["/fix","/zed/zed_node/right_raw/image_raw_color","/imu/data","/odometry/filtered","/radar/target_list_cartesian","/velodyne_points","/zed/zed_node/odom"]</rosparam>
+		<rosparam param="frame_ids">["gps","zed","imu","odometry_filtered","smart_micro","velodyne","zed_odom"]</rosparam>
+		<rosparam param="data_types">["NavSatFix","Image","Imu","Odometry","PointCloud2","PointCloud2","Odometry"]</rosparam>
 	</node>
 </launch>
