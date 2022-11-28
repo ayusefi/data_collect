@@ -183,8 +183,7 @@ bool DataToBag::imuToBag()
   boost::filesystem::directory_iterator it{p};
   while (it != boost::filesystem::directory_iterator{}){
     std::string timestamp_str = (*it).path().stem().string();
-    // std::cout << std::setprecision(10) << timestamp_str << std::endl;
-
+    
     sensor_msgs::Imu imu_msg;
     imu_msg.header.frame_id = _current_frame;
     imuFileToRos(&((*it).path().string()), &imu_msg);
@@ -216,16 +215,11 @@ bool DataToBag::navsatfixToBag()
   boost::filesystem::path p = _dataset_path + _current_dicrectory;
   boost::filesystem::directory_iterator it{p};
   while (it != boost::filesystem::directory_iterator{}){
-    ros::Time timestamp_ros;
     std::string timestamp_str = (*it).path().stem().string();
-    DataToBag::timestampStrToRos(&timestamp_str, &timestamp_ros);
-    // std::cout << std::setprecision(10) << timestamp_ros << std::endl;
 
     sensor_msgs::NavSatFix fix_msg;
     fix_msg.header.frame_id = _current_frame;
-    fix_msg.header.stamp = timestamp_ros;
     fixFileToRos(&((*it).path().string()), &fix_msg);
-    _bag.write(_current_topic, timestamp_ros, fix_msg);
     *it++;
   }
   return true;
@@ -361,13 +355,19 @@ void DataToBag::fixFileToRos(const std::string* file_path, sensor_msgs::NavSatFi
       while( std::getline(inFile,line) )
       {
           std::stringstream ss(line);
-          std::string latitude, longitude, altitude;
+          std::string timestamp_str,latitude, longitude, altitude;
+          std::getline(ss,timestamp_str,',');
           std::getline(ss,latitude,','); 
           std::getline(ss,longitude,','); 
-          std::getline(ss,altitude,','); 
+          std::getline(ss,altitude,',');
+    
+          ros::Time timestamp_ros;
+          DataToBag::timestampStrToRos(&timestamp_str, &timestamp_ros);
+          fix->header.stamp = timestamp_ros;
           fix->latitude = std::stod(latitude);
           fix->longitude = std::stod(longitude);
           fix->altitude = std::stod(altitude);
+          _bag.write(_current_topic, timestamp_ros, *fix);
       }
   }
 }

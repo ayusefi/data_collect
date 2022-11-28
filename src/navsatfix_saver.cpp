@@ -20,8 +20,9 @@ NavsatfixSaver::NavsatfixSaver(ros::NodeHandle node, ros::NodeHandle private_nh)
   catch (std::exception& e) { // Not using fs::filesystem_error since std::bad_alloc can throw too.
     std::cout << e.what() << std::endl;
   }
+
   MyFile.open(_output_path + "fix.txt");
-  MyFile << "timestamp,latitude,longitude,altitude\n";
+
   navsatfix_sub = node.subscribe(_navsatfix_topic, 1, &NavsatfixSaver::navsatfixCallback, this);
 }
 

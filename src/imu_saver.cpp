@@ -20,8 +20,9 @@ ImuSaver::ImuSaver(ros::NodeHandle node, ros::NodeHandle private_nh)
   catch (std::exception& e) { // Not using fs::filesystem_error since std::bad_alloc can throw too.
     std::cout << e.what() << std::endl;
   }
+
   MyFile.open(_output_path + "Imu.txt");
-  MyFile << "timestamp,linear_x,linear_y,linear_z,angular_x,angular_y,angular_z,orientation_x,orientation_y,orientation_z,orientation_w\n";
+
   imu_sub = node.subscribe(_imu_topic, 1, &ImuSaver::imuCallback, this);
 }
 
