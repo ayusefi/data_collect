@@ -249,15 +249,11 @@ bool DataToBag::odometryToBag()
   boost::filesystem::path p = _dataset_path + _current_dicrectory;
   boost::filesystem::directory_iterator it{p};
   while (it != boost::filesystem::directory_iterator{}){
-    ros::Time timestamp_ros;
     std::string timestamp_str = (*it).path().stem().string();
-    DataToBag::timestampStrToRos(&timestamp_str, &timestamp_ros);
 
     nav_msgs::Odometry odometry_msg;
     odometry_msg.header.frame_id = _current_frame;
-    odometry_msg.header.stamp = timestamp_ros;
     odometryFileToRos(&((*it).path().string()), &odometry_msg);
-    _bag.write(_current_topic, timestamp_ros, odometry_msg);
     *it++;
   }
   return true;
@@ -397,8 +393,10 @@ void DataToBag::odometryFileToRos(const std::string* file_path, nav_msgs::Odomet
       while( std::getline(inFile,line) )
       {
           std::stringstream ss(line);
-          std::string position_x, position_y, position_z,
+          std::string timestamp_str,
+                      position_x, position_y, position_z,
                       orientation_x, orientation_y, orientation_z, orientation_w;
+          std::getline(ss,timestamp_str,',');
           std::getline(ss,position_x,','); 
           std::getline(ss,position_y,','); 
           std::getline(ss,position_z,','); 
@@ -406,6 +404,10 @@ void DataToBag::odometryFileToRos(const std::string* file_path, nav_msgs::Odomet
           std::getline(ss,orientation_y,','); 
           std::getline(ss,orientation_z,',');
           std::getline(ss,orientation_w,',');
+
+          ros::Time timestamp_ros;
+          DataToBag::timestampStrToRos(&timestamp_str, &timestamp_ros);
+          odometry->header.stamp = timestamp_ros;
           odometry->pose.pose.position.x = std::stod(position_x);
           odometry->pose.pose.position.y = std::stod(position_y);
           odometry->pose.pose.position.z = std::stod(position_z);
@@ -413,6 +415,7 @@ void DataToBag::odometryFileToRos(const std::string* file_path, nav_msgs::Odomet
           odometry->pose.pose.orientation.y = std::stod(orientation_y);
           odometry->pose.pose.orientation.z = std::stod(orientation_z);
           odometry->pose.pose.orientation.w = std::stod(orientation_w);
+          _bag.write(_current_topic, timestamp_ros, *odometry);
       }
   }
 }

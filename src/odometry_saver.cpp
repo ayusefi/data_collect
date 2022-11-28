@@ -21,6 +21,8 @@ OdometrySaver::OdometrySaver(ros::NodeHandle node, ros::NodeHandle private_nh)
     std::cout << e.what() << std::endl;
   }
 
+  MyFile.open(_output_path + "odom.txt");
+
   odometry_sub = node.subscribe(_odometry_topic, 1, &OdometrySaver::odometryCallback, this);
 }
 
@@ -28,14 +30,9 @@ void OdometrySaver::odometryCallback(const nav_msgs::Odometry::ConstPtr& odometr
 {
   std::stringstream ss;
   ss << odometry_msg->header.stamp.sec << "." << odometry_msg->header.stamp.nsec;
-  std::ofstream MyFile(_output_path + ss.str() +".txt");
-  MyFile << std::setprecision(10) << 
+
+  MyFile << std::setprecision(10) << ss.str() << ',' <<
             odometry_msg->pose.pose.position.x <<','<<odometry_msg->pose.pose.position.y<<','<<odometry_msg->pose.pose.position.z<<','<<
             odometry_msg->pose.pose.orientation.x<<','<<odometry_msg->pose.pose.orientation.y<<','<<odometry_msg->pose.pose.orientation.z<<','<<
-            odometry_msg->pose.pose.orientation.w;
-  MyFile.close();
-  // ROS_INFO("Odometry position x: [%f], y: [%f], z: [%f]", odometry_msg->pose.pose.position.x, odometry_msg->pose.pose.position.y, 
-  //                                                         odometry_msg->pose.pose.position.z);
-  // ROS_INFO("Odometry orientation x: [%f], y: [%f], z: [%f], w: [%f]", odometry_msg->pose.pose.orientation.x, odometry_msg->pose.pose.orientation.y, 
-                                                                      // odometry_msg->pose.pose.orientation.z, odometry_msg->pose.pose.orientation.w);
+            odometry_msg->pose.pose.orientation.w<<'\n';
 }

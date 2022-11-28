@@ -24,6 +24,7 @@ private:
   void odometryCallback(const nav_msgs::Odometry::ConstPtr& odometry_msg);
   ros::Subscriber odometry_sub;
   std::string _odometry_topic, _output_path;
+  std::ofstream MyFile;
 };
 
 #endif

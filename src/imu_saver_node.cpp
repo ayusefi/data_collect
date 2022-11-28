@@ -10,7 +10,7 @@
 
 int main(int argc, char** argv)
 {
-    ros::init(argc, argv, "imu_single_file_saver_node");
+    ros::init(argc, argv, "imu_saver_node");
     ros::NodeHandle node;
     ros::NodeHandle private_nh("~");
 

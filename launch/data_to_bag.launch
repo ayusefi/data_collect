@@ -2,9 +2,9 @@
 <launch>
 	<node pkg="data_collect" type="data_to_bag" name="data_to_bag_node" output="screen" clear_params="true">
 		<param name="dataset_path" type="string" value="/home/oem/output_test/" />
-		<rosparam param="directory_names">["fix","image","imu"]</rosparam>
-		<rosparam param="topic_names">["/fix","/zed/zed_node/right_raw/image_raw_color","/imu/data"]</rosparam>
-		<rosparam param="frame_ids">["gps","zed","imu"]</rosparam>
-		<rosparam param="data_types">["NavSatFix","Image","Imu"]</rosparam>
+		<rosparam param="directory_names">["fix","image","imu","odometry_filtered","zed_odom"]</rosparam>
+		<rosparam param="topic_names">["/fix","/zed/zed_node/right_raw/image_raw_color","/imu/data","/odometry/filtered","/zed/zed_node/odom"]</rosparam>
+		<rosparam param="frame_ids">["gps","zed","imu","odometry_filtered","zed_odom"]</rosparam>
+		<rosparam param="data_types">["NavSatFix","Image","Imu","Odometry","Odometry"]</rosparam>
 	</node>
 </launch>
