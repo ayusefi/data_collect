@@ -21,6 +21,8 @@ Float32stampedSaver::Float32stampedSaver(ros::NodeHandle node, ros::NodeHandle p
     std::cout << e.what() << std::endl;
   }
 
+  MyFile.open(_output_path + "float32stamped.txt");
+
   float32stamped_sub = node.subscribe(_float32stamped_topic, 1, &Float32stampedSaver::float32stampedCallback, this);
 }
 
@@ -28,8 +30,6 @@ void Float32stampedSaver::float32stampedCallback(const marti_common_msgs::Float3
 {
   std::stringstream ss;
   ss << float32stamped_msg->header.stamp.sec << "." << float32stamped_msg->header.stamp.nsec;
-  std::ofstream MyFile(_output_path + ss.str() +".txt");
-  MyFile << std::setprecision(10) << float32stamped_msg->value;
-  MyFile.close();
-  // ROS_INFO("Float32stamped value: [%f]", float32stamped_msg->value);
+
+  MyFile << std::setprecision(10) << ss.str() << ',' << float32stamped_msg->value << '\n';
 }

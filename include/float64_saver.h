@@ -24,6 +24,7 @@ private:
   void float64Callback(const std_msgs::Float64::ConstPtr& float64_msg);
   ros::Subscriber float64_sub;
   std::string _float64_topic, _output_path;
+  std::ofstream MyFile;
 };
 
 #endif

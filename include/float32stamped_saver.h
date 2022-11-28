@@ -24,6 +24,7 @@ private:
   void float32stampedCallback(const marti_common_msgs::Float32Stamped::ConstPtr& float32stamped_msg);
   ros::Subscriber float32stamped_sub;
   std::string _float32stamped_topic, _output_path;
+  std::ofstream MyFile;
 };
 
 #endif

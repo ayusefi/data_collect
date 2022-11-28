@@ -21,6 +21,8 @@ Float64Saver::Float64Saver(ros::NodeHandle node, ros::NodeHandle private_nh)
     std::cout << e.what() << std::endl;
   }
 
+  MyFile.open(_output_path + "float64.txt");
+
   float64_sub = node.subscribe(_float64_topic, 1, &Float64Saver::float64Callback, this);
 }
 
@@ -29,8 +31,6 @@ void Float64Saver::float64Callback(const std_msgs::Float64::ConstPtr& float64_ms
   ros::Time stamp = ros::Time::now();
   std::stringstream ss;
   ss << stamp.sec << "." << stamp.nsec;
-  std::ofstream MyFile(_output_path + ss.str() +".txt");
-  MyFile << std::setprecision(10) << float64_msg->data;
-  MyFile.close();
-  // ROS_INFO("Float64 data: [%f]", float64_msg->data);
+
+  MyFile << std::setprecision(10) << ss.str() << ',' << float64_msg->data << '\n';
 }

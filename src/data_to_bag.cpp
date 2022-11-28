@@ -198,13 +198,10 @@ bool DataToBag::float64ToBag()
   boost::filesystem::path p = _dataset_path + _current_dicrectory;
   boost::filesystem::directory_iterator it{p};
   while (it != boost::filesystem::directory_iterator{}){
-    ros::Time timestamp_ros;
     std::string timestamp_str = (*it).path().stem().string();
-    DataToBag::timestampStrToRos(&timestamp_str, &timestamp_ros);
 
     std_msgs::Float64 float64_msg;
     float64FileToRos(&((*it).path().string()), &float64_msg);
-    _bag.write(_current_topic, timestamp_ros, float64_msg);
     *it++;
   }
   return true;
@@ -230,15 +227,11 @@ bool DataToBag::float32stampedToBag()
   boost::filesystem::path p = _dataset_path + _current_dicrectory;
   boost::filesystem::directory_iterator it{p};
   while (it != boost::filesystem::directory_iterator{}){
-    ros::Time timestamp_ros;
     std::string timestamp_str = (*it).path().stem().string();
-    DataToBag::timestampStrToRos(&timestamp_str, &timestamp_ros);
 
     marti_common_msgs::Float32Stamped float32stamped_msg;
     float32stamped_msg.header.frame_id = _current_frame;
-    float32stamped_msg.header.stamp = timestamp_ros;
     float32stampedFileToRos(&((*it).path().string()), &float32stamped_msg);
-    _bag.write(_current_topic, timestamp_ros, float32stamped_msg);
     *it++;
   }
   return true;
@@ -335,9 +328,14 @@ void DataToBag::float64FileToRos(const std::string* file_path, std_msgs::Float64
       while( std::getline(inFile,line) )
       {
           std::stringstream ss(line);
-          std::string data;
+          std::string timestamp_str,data;
+          std::getline(ss,timestamp_str,',');
           std::getline(ss,data,',');  
+
+          ros::Time timestamp_ros;
+          DataToBag::timestampStrToRos(&timestamp_str, &timestamp_ros);
           float64->data = std::stod(data);
+          _bag.write(_current_topic, timestamp_ros, *float64);
       }
   }
 }
@@ -377,9 +375,15 @@ void DataToBag::float32stampedFileToRos(const std::string* file_path, marti_comm
       while( std::getline(inFile,line) )
       {
           std::stringstream ss(line);
-          std::string value;
+          std::string timestamp_str, value;
+          std::getline(ss,timestamp_str,',');
           std::getline(ss,value,',');  
+
+          ros::Time timestamp_ros;
+          DataToBag::timestampStrToRos(&timestamp_str, &timestamp_ros);
+          float32stamped->header.stamp = timestamp_ros;
           float32stamped->value = std::stod(value);
+          _bag.write(_current_topic, timestamp_ros, *float32stamped);
       }
   }
 }
