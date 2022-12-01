@@ -64,7 +64,7 @@ Run the main.launch file.
 roslaunch data_collect main.launch
 ```
 
-### Convert collected data bag to rosbag
+### Convert collected data to rosbag
 In **data_to_bag.launch** edit the **output directory (path to collected data)**, **directory_names**, **topic_names**, **frame_ids**, **data_types**. An example of each sensor type is given in the file. The **output.bag** will be saved in output directory. _Remeber, the order of parameters is important._
 ```xml
 <launch>
