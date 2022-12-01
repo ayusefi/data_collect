@@ -15,7 +15,6 @@ data_collect is able to collect hours of sensor data with much less space requir
 - Convert collected data back to rosbags and vice versa.
 - Convert collected Velodyne pcd files to images.
 - Extract list of collected files in csv/txt to be used in deep learning applications.
-- Written in C++.
 - Currently supported datatypes:
    - pointcloud2 &emsp; saved &emsp; -> &emsp; timestamp.pcd
    - Image &emsp; saved &emsp; -> &emsp; timestamp.jpg
