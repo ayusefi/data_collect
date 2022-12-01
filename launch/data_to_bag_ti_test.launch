@@ -1,0 +1,12 @@
+<!-- -->
+<launch>
+	<arg name="output_dir" default="/home/oem/output_test/"/>
+
+	<node pkg="data_collect" type="data_to_bag" name="data_to_bag_node" output="screen" clear_params="true">
+		<param name="dataset_path" type="string" value="$(arg output_dir)" />
+		<rosparam param="directory_names">["ti_radar"]</rosparam>
+		<rosparam param="topic_names">["/ti_mmwave/radar_scan"]</rosparam>
+		<rosparam param="frame_ids">["ti_mmwave"]</rosparam>
+		<rosparam param="data_types">["RadarScan"]</rosparam>
+	</node>
+</launch>

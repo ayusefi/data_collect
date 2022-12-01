@@ -109,6 +109,17 @@ void DataToBag::dataToBag()
         std::cout << std::chrono::duration <double, std::milli> (diff).count()/1000.0<< " seconds" << std::endl;
         }
         break;
+      case _ti_radar_enum:
+      {
+        std::cout << "Processing topic: " << _topic_names[i] << std::endl;
+        auto start = std::chrono::steady_clock::now();
+        if(tiRadarToBag()) std::cout << " \t\tDone in ";
+        else std::cout << "Failed!\n";
+        auto end = std::chrono::steady_clock::now();
+        auto diff = end - start;
+        std::cout << std::chrono::duration <double, std::milli> (diff).count()/1000.0<< " seconds" << std::endl;
+        }
+        break;
       case _noSupport_enum:
         std::cout << "data_type: " << _data_types[i] << " is not supported!" << std::endl;
         break;
@@ -246,6 +257,22 @@ bool DataToBag::odometryToBag()
     nav_msgs::Odometry odometry_msg;
     odometry_msg.header.frame_id = _current_frame;
     odometryFileToRos(&((*it).path().string()), &odometry_msg);
+    *it++;
+  }
+  return true;
+}
+
+bool DataToBag::tiRadarToBag()
+{
+  boost::filesystem::path p = _dataset_path + _current_dicrectory;
+  boost::filesystem::directory_iterator it{p};
+  while (it != boost::filesystem::directory_iterator{}){
+    std::string timestamp_str = (*it).path().stem().string();
+    
+    ti_mmwave_rospkg::RadarScan ti_radar_msg;
+    ti_radar_msg.header.frame_id = _current_frame;
+    tiRadarFileToRos(&((*it).path().string()), &ti_radar_msg);
+    
     *it++;
   }
   return true;
@@ -423,6 +450,47 @@ void DataToBag::odometryFileToRos(const std::string* file_path, nav_msgs::Odomet
   }
 }
 
+void DataToBag::tiRadarFileToRos(const std::string* file_path, ti_mmwave_rospkg::RadarScan* ti_radar)
+{
+  std::ifstream inFile(*file_path);
+  if (inFile.is_open())
+  {
+      std::string line;
+      while( std::getline(inFile,line) )
+      {
+          std::stringstream ss(line);
+          std::string timestamp_str,
+                      point_id, x, y, z,
+                      range, velocity, doppler_bin, bearing, intensity;
+          std::getline(ss,timestamp_str,',');
+          std::getline(ss,point_id,','); 
+          std::getline(ss,x,','); 
+          std::getline(ss,y,','); 
+          std::getline(ss,z,','); 
+          std::getline(ss,range,','); 
+          std::getline(ss,velocity,','); 
+          std::getline(ss,doppler_bin,','); 
+          std::getline(ss,bearing,','); 
+          std::getline(ss,intensity,',');
+
+          ros::Time timestamp_ros;
+          DataToBag::timestampStrToRos(&timestamp_str, &timestamp_ros);
+          ti_radar->header.stamp = timestamp_ros;
+          ti_radar->point_id = std::stod(point_id);
+          ti_radar->x = std::stod(x);
+          ti_radar->y = std::stod(y);
+          ti_radar->z = std::stod(z);
+          ti_radar->range = std::stod(range);
+          ti_radar->velocity = std::stod(velocity);
+          ti_radar->doppler_bin = std::stod(doppler_bin);
+          ti_radar->bearing = std::stod(bearing);
+          ti_radar->intensity = std::stod(intensity);
+
+          _bag.write(_current_topic, timestamp_ros, *ti_radar);
+      }
+  }
+}
+
 DataToBag::_data_types_enum DataToBag::hashit(std::string const& in_string){
   if(in_string=="PointCloud2") return _PointCloud2_enum;
   if(in_string=="Image")  return _Image_enum;
@@ -431,5 +499,6 @@ DataToBag::_data_types_enum DataToBag::hashit(std::string const& in_string){
   if(in_string=="NavSatFix") return _NavSatFix_enum;
   if(in_string=="Float32Stamped") return _Float32Stamped_enum;
   if(in_string=="Odometry") return _Odometry_enum;
+  if(in_string=="RadarScan") return _ti_radar_enum;
   else  return _noSupport_enum;
 }

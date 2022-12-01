@@ -21,6 +21,7 @@
 #include <std_msgs/Float64.h>
 #include <nav_msgs/Odometry.h>
 #include <marti_common_msgs/Float32Stamped.h>
+#include <ti_mmwave_rospkg/RadarScan.h>
 #include <chrono>
 #include <vector>
 
@@ -40,6 +41,7 @@ public:
     _NavSatFix_enum,
     _Float32Stamped_enum,
     _Odometry_enum,
+    _ti_radar_enum,
     _noSupport_enum
   };
 
@@ -53,6 +55,7 @@ private:
   bool navsatfixToBag();
   bool float32stampedToBag();
   bool odometryToBag();
+  bool tiRadarToBag();
 
   void pointcloudFileToRos(const std::string* file_path, sensor_msgs::PointCloud2* pointcloud);
   void imageFileToRos(const std::string* file_path, sensor_msgs::Image* image);
@@ -61,6 +64,7 @@ private:
   void fixFileToRos(const std::string* file_path, sensor_msgs::NavSatFix* fix);
   void float32stampedFileToRos(const std::string* file_path, marti_common_msgs::Float32Stamped* float32stamped);
   void odometryFileToRos(const std::string* file_path, nav_msgs::Odometry* odometry);
+  void tiRadarFileToRos(const std::string* file_path, ti_mmwave_rospkg::RadarScan* ti_radar);
 
   _data_types_enum hashit(std::string const& in_string);
   std::string _dataset_path;
