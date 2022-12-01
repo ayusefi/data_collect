@@ -20,6 +20,7 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   nav_msgs
   rosbag
+  ti_mmwave_rospkg
 )
 
 ## Find system dependencies
@@ -90,6 +91,6 @@ add_executable(pcd_files_to_image src/pcd_files_to_image_node.cpp src/pcd_files_
 target_link_libraries(pcd_files_to_image ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${OpenCV_LIBRARIES} ${Boost_LIBRARIES})
 add_dependencies(pcd_files_to_image ${catkin_EXPORTED_TARGETS})
 
-add_executable(test_temp src/test_temp.cpp)
-target_link_libraries(test_temp ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${OpenCV_LIBRARIES} ${Boost_LIBRARIES})
-add_dependencies(test_temp ${catkin_EXPORTED_TARGETS})
+add_executable(ti_radar_saver src/ti_radar_saver_node.cpp src/ti_radar_saver.cpp)
+target_link_libraries(ti_radar_saver ${catkin_LIBRARIES})
+add_dependencies(ti_radar_saver ${catkin_EXPORTED_TARGETS})

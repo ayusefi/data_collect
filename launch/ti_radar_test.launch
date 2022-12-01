@@ -1,0 +1,11 @@
+<!-- -->
+<launch>
+	<arg name="output_dir" default="/home/oem/output_test"/>
+
+	<!-- imu -->
+	<node pkg="data_collect" type="ti_radar_saver" name="ti_radar_saver_node" output="screen" clear_params="true">
+		<param name="ti_radar_topic" type="string" value="/ti_mmwave/radar_scan" />
+		<param name="output_path" type="string" value="$(arg output_dir)/ti_radar/" />
+	</node>
+
+</launch>
