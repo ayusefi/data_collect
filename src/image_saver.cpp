@@ -21,7 +21,7 @@ ImageSaver::ImageSaver(ros::NodeHandle node, ros::NodeHandle private_nh)
     std::cout << e.what() << std::endl;
   }
 
-  image_sub = node.subscribe(_image_topic, 1, &ImageSaver::imageCallback, this);
+  image_sub = node.subscribe(_image_topic, 10, &ImageSaver::imageCallback, this);
 }
 
 void ImageSaver::imageCallback(const sensor_msgs::ImageConstPtr& image_msg)

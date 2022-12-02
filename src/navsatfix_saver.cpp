@@ -23,7 +23,7 @@ NavsatfixSaver::NavsatfixSaver(ros::NodeHandle node, ros::NodeHandle private_nh)
 
   MyFile.open(_output_path + "fix.txt");
 
-  navsatfix_sub = node.subscribe(_navsatfix_topic, 1, &NavsatfixSaver::navsatfixCallback, this);
+  navsatfix_sub = node.subscribe(_navsatfix_topic, 10, &NavsatfixSaver::navsatfixCallback, this);
 }
 
 void NavsatfixSaver::navsatfixCallback(const sensor_msgs::NavSatFix::ConstPtr& navsatfix_msg)

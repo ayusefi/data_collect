@@ -23,7 +23,7 @@ Float32stampedSaver::Float32stampedSaver(ros::NodeHandle node, ros::NodeHandle p
 
   MyFile.open(_output_path + "float32stamped.txt");
 
-  float32stamped_sub = node.subscribe(_float32stamped_topic, 1, &Float32stampedSaver::float32stampedCallback, this);
+  float32stamped_sub = node.subscribe(_float32stamped_topic, 10, &Float32stampedSaver::float32stampedCallback, this);
 }
 
 void Float32stampedSaver::float32stampedCallback(const marti_common_msgs::Float32Stamped::ConstPtr& float32stamped_msg)

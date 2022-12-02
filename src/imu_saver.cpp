@@ -23,7 +23,7 @@ ImuSaver::ImuSaver(ros::NodeHandle node, ros::NodeHandle private_nh)
 
   MyFile.open(_output_path + "Imu.txt");
 
-  imu_sub = node.subscribe(_imu_topic, 1, &ImuSaver::imuCallback, this);
+  imu_sub = node.subscribe(_imu_topic, 10, &ImuSaver::imuCallback, this);
 }
 
 void ImuSaver::imuCallback(const sensor_msgs::Imu::ConstPtr& imu_msg)

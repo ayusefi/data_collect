@@ -23,7 +23,7 @@ OdometrySaver::OdometrySaver(ros::NodeHandle node, ros::NodeHandle private_nh)
 
   MyFile.open(_output_path + "odom.txt");
 
-  odometry_sub = node.subscribe(_odometry_topic, 1, &OdometrySaver::odometryCallback, this);
+  odometry_sub = node.subscribe(_odometry_topic, 10, &OdometrySaver::odometryCallback, this);
 }
 
 void OdometrySaver::odometryCallback(const nav_msgs::Odometry::ConstPtr& odometry_msg)

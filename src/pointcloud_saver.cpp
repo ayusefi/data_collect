@@ -21,7 +21,7 @@ PointcloudSaver::PointcloudSaver(ros::NodeHandle node, ros::NodeHandle private_n
   catch (std::exception& e) { // Not using fs::filesystem_error since std::bad_alloc can throw too.
     std::cout << e.what() << std::endl;
   }
-  pointcloud_sub = node.subscribe(_pointcloud_topic, 1, &PointcloudSaver::pointcloudCallback, this);
+  pointcloud_sub = node.subscribe(_pointcloud_topic, 10, &PointcloudSaver::pointcloudCallback, this);
 }
 
 void PointcloudSaver::pointcloudCallback(const boost::shared_ptr<const pcl::PCLPointCloud2>& cloud)
